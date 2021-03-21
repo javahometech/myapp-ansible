@@ -2,15 +2,18 @@
 - hosts: webservers 
   become: True
   tasks:
-    - name: Install packages
-      yum:
-        name: "httpd"
-        state: "present"
-    - name: Start Apache server
-      service:
-        name: httpd
+    - name: download & unarchive
+      unarchive:
+        src: https://mirrors.ocf.berkeley.edu/apache/tomcat/tomcat-9/v9.0.44/bin/apache-tomcat-9.0.44.tar.gz
+        dest: /opt/tomcat
+        remote_src: yes
+        extra_opts: [--strip-components=1]
+    - name: Start and enable Tomcat service
+      systemd:
+        name: tomcat9
         state: started
-        enabled: True
+        enabled: true
+        daemon_reload: true
     - name: Deploy static website
       copy:
         src: index.html
