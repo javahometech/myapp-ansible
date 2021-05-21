@@ -1,6 +1,7 @@
 ---
-- hosts: webservers 
-  become: True
+- hosts: localhost
+  connection: local
+  #become: True
   tasks:
     - name: Install packages
       yum:
@@ -11,8 +12,8 @@
         name: httpd
         state: started
         enabled: True
-    - name: Deploy static website
-      copy:
-        src: index.html
-        dest: /var/www/html/
+    #- name: Deploy static website
+     # copy:
+      #  src: index.html
+       # dest: /var/www/html/
 ...
