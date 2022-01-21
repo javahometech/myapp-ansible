@@ -3,7 +3,7 @@
   become: True
   tasks:
     - name: Install packages
-      yum:
+      apt:
         name: "httpd"
         state: "present"
     - name: Start Apache server
