@@ -13,6 +13,6 @@
         enabled: True
     - name: Deploy static website
       copy:
-        src: index.html
+        src: target/my-app-1.0.0.jar
         dest: /var/www/html/
 ...
