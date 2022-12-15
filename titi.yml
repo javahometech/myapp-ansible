@@ -1,0 +1,29 @@
+- name: create users
+  hosts: all
+  become: true
+  tasks:
+    - name: create user 
+      user:
+        name: titi
+        shell: /bin/bash
+        groups: devops,example
+        append: yes
+        generate_ssh_key: yes
+        ssh_key_file: .ssh/id_rsa
+
+    - name: Creating an empty file
+      file:
+         path: /etc/sudoers.d/titi
+         state: touch
+
+    - name: configure a pass-wordless authentication & execution for titi
+      lineinfile:
+        path: /etc/sudoers.d/titi
+        line: "titi ALL=(ALL) NOPASSWD: ALL"
+        state: present
+
+    - name: install the SSH public key on managed host for titi
+      authorized_key:
+        user: titi
+        state: present
+        key: "{{ lookup('file', '/home/ubuntu/.ssh/id_rsa.pub') }}"
