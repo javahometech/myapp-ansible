@@ -1,2 +1,2 @@
 [webservers]
-13.93.104.74 ansible_user=adminuser
+10.0.2.4 ansible_user=adminuser
