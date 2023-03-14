@@ -1,2 +1,2 @@
 [webservers]
-172.187.147.48 ansible_user=aazureuser
+172.187.147.48 ansible_user=azureuser
